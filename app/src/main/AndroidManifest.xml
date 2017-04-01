@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.inthecheesefactory.lab.designlibrary" >
+    package="com.inthecheesefactory.lab.designlibrary">
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme.WithoutActionBar" >
-        <activity
+        android:theme="@style/AppTheme.WithoutActionBar">
+        <!--activity
             android:name=".CodeLabActivity"
             android:label="@string/title_activity_code_lab"
             android:theme="@style/AppTheme">
@@ -15,15 +15,20 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity-->
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".AboutActivity" />
+        <activity android:name=".LightSensorActivity"/>
+        <activity android:name=".AcceSensorActivity"/>
+        <activity android:name=".GravitySensorActivity"/>
+        <activity android:name=".GyoSensorActivity"/>
     </application>
 
 </manifest>

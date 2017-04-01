@@ -3,23 +3,24 @@
 
     <group android:checkableBehavior="all">
         <item
-            android:id="@+id/navItem1"
-            android:icon="@drawable/ic_action_location_found_dark"
+            android:id="@+id/home_button"
             android:title="Home"/>
         <item
-            android:id="@+id/navItem2"
-            android:icon="@drawable/ic_action_location_found_dark"
-            android:title="Blog"/>
+            android:title=""/>
+        <item
+            android:id="@+id/lightSensor"
+            android:title="Light Sensor"/>
+        <item
+            android:id="@+id/acceSensor"
+            android:title="Accelerometer"/>
 
         <item
-            android:id="@+id/navItem3"
-            android:icon="@drawable/ic_action_location_found_dark"
-            android:title="About"/>
+            android:id="@+id/graSensor"
+            android:title="Gravity Sensor"/>
 
         <item
-            android:id="@+id/navItem4"
-            android:icon="@drawable/ic_action_location_found_dark"
-            android:title="Contact"/>
+            android:id="@+id/GyroSensor"
+            android:title="Gyroscope Sensor"/>
     </group>
 
 </menu>

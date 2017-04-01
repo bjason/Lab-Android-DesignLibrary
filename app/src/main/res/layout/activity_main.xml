@@ -4,7 +4,7 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.inthecheesefactory.lab.designlibrary.activity.MainActivity">
+    tools:context="com.inthecheesefactory.lab.designlibrary.MainActivity">
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/rootLayout"
@@ -47,49 +47,34 @@
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
+                android:id="@+id/view_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <android.support.design.widget.TextInputLayout
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent" />
 
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Username" />
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
+                <TextView
+                    android:id="@+id/text_main"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent"
+                    android:text=""
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp" />
 
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Password" />
-                </android.support.design.widget.TextInputLayout>
-
-                <include layout="@layout/long_content"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
             </LinearLayout>
 
         </android.support.v4.widget.NestedScrollView>
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_marginBottom="@dimen/fab_margin_bottom"
-            android:layout_marginRight="@dimen/fab_margin_right"
-            android:src="@drawable/ic_plus"
-            app:borderWidth="0dp"
-            app:fabSize="normal" />
 
     </android.support.design.widget.CoordinatorLayout>
 
@@ -98,9 +83,10 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="@color/colorPrimary"
         app:headerLayout="@layout/nav_header"
         app:itemIconTint="@color/nav_item_icon_tint_color"
-        app:itemTextColor="@color/nav_item_text_color"
+        app:itemTextColor="@color/colorWhite"
         app:menu="@menu/navigation_drawer_items" />
 
 </android.support.v4.widget.DrawerLayout>

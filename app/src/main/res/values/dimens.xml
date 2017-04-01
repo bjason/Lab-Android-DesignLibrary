@@ -11,5 +11,5 @@
 
     <dimen name="expanded_toolbar_title_margin_start">64dp</dimen>
 
-    <dimen name="nav_header_text_margin_left">16dp</dimen>
+    <dimen name="nav_header_text_margin_left">25dp</dimen>
 </resources>
