@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="nav_item_icon_tint_color">@color/colorPrimary</color>
-    <color name="nav_item_text_color">@color/colorPrimaryDark</color>
+    <color name="nav_item_icon_tint_color">@color/colorWhite</color>
+    <color name="nav_item_text_color">#aeaeae</color>
     <color name="colorPrimary">#111111</color>
     <color name="colorPrimaryDark">#111111</color>
-    <color name="colorPrimaryLigth">#353535</color>
+    <color name="colorPrimaryLight">#353535</color>
     <color name="colorAccent">#ff4040</color>
     <color name="colorWhite">#ffffff</color>
 </resources>

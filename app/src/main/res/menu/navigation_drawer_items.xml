@@ -1,26 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="all">
+    <group
+        android:id="@+id/menugroup"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/home_button"
-            android:title="Home"/>
+            android:icon="@drawable/home"
+            android:title="@string/txt_home" />
         <item
-            android:title=""/>
-        <item
-            android:id="@+id/lightSensor"
-            android:title="Light Sensor"/>
-        <item
-            android:id="@+id/acceSensor"
-            android:title="Accelerometer"/>
-
-        <item
-            android:id="@+id/graSensor"
-            android:title="Gravity Sensor"/>
-
-        <item
-            android:id="@+id/GyroSensor"
-            android:title="Gyroscope Sensor"/>
+            android:id="@+id/index_button"
+            android:icon="@drawable/list"
+            android:title="@string/index_of_sensors" />
     </group>
 
+    <item
+        android:title="">
+        <menu>
+            <item
+                android:id="@+id/lightSensor"
+                android:icon="@drawable/light"
+                android:title="@string/txt_light" />
+            <item
+                android:id="@+id/acceSensor"
+                android:icon="@drawable/acce"
+                android:title="@string/txt_acce" />
+            <item
+                android:id="@+id/graSensor"
+                android:icon="@drawable/grav"
+                android:title="@string/txt_gra" />
+            <item
+                android:id="@+id/GyroSensor"
+                android:icon="@drawable/gyro"
+                android:title="@string/txt_gyo" />
+            <item
+                android:id="@+id/proxiSensor"
+                android:icon="@drawable/sensor"
+                android:title="@string/txt_pro" />
+            <item
+                android:id="@+id/magSensor"
+                android:icon="@drawable/sensor"
+                android:title="@string/txt_mag" />
+            <item
+                android:id="@+id/temperatureSensor"
+                android:icon="@drawable/tmp"
+                android:title="@string/txt_temp" />
+            <item
+                android:id="@+id/humiditySensor"
+                android:icon="@drawable/hum"
+                android:title="@string/txt_humi" />
+            <item
+                android:id="@+id/pressureSensor"
+                android:icon="@drawable/pre"
+                android:title="@string/txt_pre" />
+            <item
+                android:id="@+id/rotateSensor"
+                android:icon="@drawable/rot"
+                android:title="@string/txt_rot" />
+
+        </menu>
+    </item>
 </menu>

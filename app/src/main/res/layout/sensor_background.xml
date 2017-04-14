@@ -4,57 +4,56 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.inthecheesefactory.lab.designlibrary.LightSensorActivity">
+    tools:context="com.inthecheesefactory.lab.designlibrary.SensorActivity">
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/rootLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
+        <FrameLayout
             android:id="@+id/view_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/background"
             android:orientation="vertical">
 
-            <!--com.inthecheesefactory.lab.designlibrary.PathView
+            <com.inthecheesefactory.lab.designlibrary.reference.PathView
+                android:id="@+id/pathView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/-->
+                android:layout_height="match_parent" />
 
-            <TextView
-                android:id="@+id/light_hint"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="23dp"
-                android:layout_marginStart="23dp"
-                android:text=""
-                android:textSize="18dp" />
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical">
 
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/sensor_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="23dp"
+                    android:text="@string/defaultValue"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="38sp" />
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_collapseMode="pin"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+                <TextView
+                    android:id="@+id/sensor_unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="23dp"
+                    android:text="@string/defaultUnit"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <include layout="@layout/toolbar" />
 
     </android.support.design.widget.CoordinatorLayout>
 
-    <android.support.design.widget.NavigationView
-        android:id="@+id/navigation"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@color/colorPrimary"
-        app:headerLayout="@layout/nav_header"
-        app:itemIconTint="@color/nav_item_icon_tint_color"
-        app:itemTextColor="@color/colorWhite"
-        app:menu="@menu/navigation_drawer_items" />
+    <include layout="@layout/navigationmenu" />
 
 </android.support.v4.widget.DrawerLayout>

@@ -7,8 +7,6 @@
     <string name="txt_floating_action_button">FloatActionButton</string>
     <string name="txt_navigation_view">NavigationView</string>
     <string name="txt_other">Other</string>
-    <string name="txt_yo_yo">Yo Yo</string>
-    <string name="title_activity_code_lab">CodeLabActivity</string>
     <string name="about">About</string>
     <string name="pause">Stop recording</string>
     <string name="tip_in_tmp">Sorry. There is no temperature sensor in your mobile.</string>
@@ -19,5 +17,132 @@
     <string name="txt_acce">Accelerator</string>
     <string name="txt_light">Light Sensor</string>
     <string name="txt_gra">Gravity Sensor</string>
-    <string name="txt_gyo">Gyro Sensor</string>
+    <string name="txt_gyo">Gyroscope Sensor</string>
+    <string name="txt_home">Home</string>
+    <string name="txt_pro">Proximity Sensor</string>
+    <string name="txt_mag">Magnetic Field Sensor</string>
+    <string name="txt_temp">Temperature Sensor</string>
+    <string name="txt_humi">Humidity Sensor</string>
+    <string name="txt_pre">Pressure Sensor</string>
+    <string name="txt_rot">Rotate Sensor</string>
+    <string name="defaultValue">Value: N/A</string>
+    <string name="defaultUnit">Unit: N/A</string>
+    <string name="no_sensor_hint">There is no light sensor in your device.</string>
+    <string name="txt_history">History</string>
+    <string name="txt_lacce">Linear Acceleration Sensor</string>
+    <string name="txt_unmag">Uncalibrated Magnetic Field Sensor</string>
+    <string name="txt_motion">Significant Motion Sensor</string>
+    <string name="txt_cuptemp">CPU Temperature Sensor</string>
+    <string name="txt_step">Step Counter</string>
+    <string name="txt_ori">Orientation Sensor</string>
+    <string name="txt_unknown">Unknown</string>
+    <string name="txt_na">N/A</string>
+    <string name="save_to_excel">Save to Excel</string>
+    <string name="txt_wrong_write">Something went wrong</string>
+    <string name="txt_writen_success">written successfully</string>
+    <string name="index_of_sensors">Index of Sensors</string>
+    <string name="txt_delete">deleted successfully</string>
+    <string name="delete_fail">Fail to delete</string>
+    <string name="current_gesture">\nCurrent Gesture: </string>
+    <string name="txt_calculating">Calculating...</string>
+    <string name="txt_standing">Standing</string>
+    <string name="txt_sitting">Sitting</string>
+    <string name="clear_all_saved_files">Clear all saved files</string>
+    <string name="txt_walking">Walking</string>
+    <string name="txt_running">Running</string>
+    <string name="txt_tumble">Tumbling</string>
+    <string name="please_stand_hint">Please stand for a while to provide some necessary information</string>
+    <string name="save_fail">Fail to save the file</string>
+    <string name="txt_current">Current State</string>
+    <string name="txt_summary">Activity Summary</string>
+    <string name="profile_image">profile image</string>
+    <string name="txt_supine">Supine</string>
+    <string name="txt_prone">Prone</string>
+    <string name="txt_lateral">Lateral</string>
+    <string name="txt_keep">Last time you change your gesture: </string>
+    <string name="txt_unit">Unit:</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_social_recommendations">Enable social recommendations</string>
+    <string name="pref_description_social_recommendations">Recommendations for people to contact
+        based on your message history
+    </string>
+
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string-array name="list_preference_entries">
+        <item>Entry 1</item>
+        <item>Entry 2</item>
+        <item>Entry 3</item>
+    </string-array>
+
+    <string-array name="list_preference_entry_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="multi_select_list_preference_default_value" />
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
+    <string name="reference">Reference</string>
+    <string name="referenceContent">Some Layout Frame:\n\n
+        Android Design Support Library Codelab:\n Sittiphol Phanvilai (nuuneoi a.k.a. Nine)\n
+        Android GDE from Thailand\n
+        Know me more through an Interactive Resume: http://nuuneoi.com/profile\n
+        Company Website: http://inthecheesefactory.com\n
+        Personal Website: http://nuuneoi.com\n\n
+
+        Coordinator Examples:\n https://github.com/bjason/CoordinatorExamples\n\n SensorMonitor:\n
+        https://github.com/bjason/SensorMonitor</string>
+    <string name="license">License</string>
 </resources>
