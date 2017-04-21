@@ -2,11 +2,10 @@ package com.inthecheesefactory.lab.designlibrary;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.hardware.Sensor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -18,6 +17,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.inthecheesefactory.lab.designlibrary.reference.SimpleFragmentPagerAdapter;
 
@@ -35,21 +36,20 @@ import com.inthecheesefactory.lab.designlibrary.reference.SimpleFragmentPagerAda
 
 public class HomeActivity extends AppCompatActivity
         implements AppBarLayout.OnOffsetChangedListener,
-        CurrentFragment.OnFragmentInteractionListener,
-        SummaryFragment.OnFragmentInteractionListener {
+        CurrentFragment.OnFragmentUpdateListener {
 
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle drawerToggle;
     CoordinatorLayout rootLayout;
+    MenuItem pause, resume;
+
     private static final int PERCENTAGE_TO_ANIMATE_AVATAR = 20;
     private boolean mIsAvatarShown = true;
-    private ImageView mProfileImage;
     private int mMaxScrollSize;
 
     private SimpleFragmentPagerAdapter pagerAdapter;
     private ViewPager viewPager;
-    private TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +70,7 @@ public class HomeActivity extends AppCompatActivity
         pagerAdapter = new SimpleFragmentPagerAdapter(getSupportFragmentManager(), this);
         viewPager.setAdapter(pagerAdapter);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.txt_current)));
         tabLayout.addTab(tabLayout.newTab().setText(getString(R.string.txt_summary)));
         tabLayout.setupWithViewPager(viewPager);
@@ -165,6 +165,14 @@ public class HomeActivity extends AppCompatActivity
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        pause = menu.getItem(0);
+        resume = menu.getItem(1);
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.optionmenu_main, menu);
@@ -185,6 +193,15 @@ public class HomeActivity extends AppCompatActivity
 
         if (item.getItemId() == R.id.action_pause) {
             //unregisterListener();
+            //getFragmentManager().findFragmentById(R.id.)\
+            CurrentFragment currentFragment = (CurrentFragment) getSupportFragmentManager().
+                    findFragmentByTag("android:switcher:" + R.id.viewpager
+                            + ":" + viewPager.getCurrentItem());
+
+            currentFragment.unregisterListener();
+
+            resume.setEnabled(true);
+            pause.setEnabled(false);
         }
 
         if (item.getItemId() == R.id.setting) {
@@ -197,7 +214,7 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-        mProfileImage = (ImageView) findViewById(R.id.materialup_profile_image);
+        ImageView mProfileImage = (ImageView) findViewById(R.id.materialup_profile_image);
         if (mMaxScrollSize == 0)
             mMaxScrollSize = appBarLayout.getTotalScrollRange();
 
@@ -222,7 +239,22 @@ public class HomeActivity extends AppCompatActivity
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void onStateUpdate(Bundle bundle) {
+        String currentState = bundle.getString("state");
+        long lastTime = bundle.getLong("lastTime");
 
+        /*SummaryFragment summaryFragment = (SummaryFragment) getSupportFragmentManager().
+                findFragmentByTag("android:switcher:" + R.id.viewpager
+                        + ":" + 1);*/
+
+        //SummaryFragment summaryFragment = (SummaryFragment) pagerAdapter.getItem(1);
+
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.summary_layout);
+
+        TextView textView = new TextView(this);
+        textView.setText("\n" + lastTime + ":" + currentState);
+        textView.setTextColor(Color.WHITE);
+        textView.setTextSize(20);
+        linearLayout.addView(textView);
     }
 }

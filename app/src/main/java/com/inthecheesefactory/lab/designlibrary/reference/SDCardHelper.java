@@ -5,7 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.os.StatFs;
-import android.widget.Toast;
+import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * Created by WU on 2017/4/10.
@@ -128,6 +129,7 @@ public class SDCardHelper {
     public static boolean saveFileToSDCardPrivateFilesDir(byte[] data,
                                                           String fileName, Context context) {
         BufferedOutputStream bos = null;
+        Log.d("content", "saveFileToSDCardPrivateFilesDir: " + Arrays.toString(data));
         if (isSDCardMounted()) {
             File file = context.getExternalFilesDir(null);
             try {
@@ -137,6 +139,7 @@ public class SDCardHelper {
                 bos.flush();
                 return true;
             } catch (Exception e) {
+                Log.d("exception", "saveFileToSDCardPrivateFilesDir: ");
                 e.printStackTrace();
             } finally {
                 try {

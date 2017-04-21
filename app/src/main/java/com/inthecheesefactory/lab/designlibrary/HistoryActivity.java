@@ -1,9 +1,12 @@
 package com.inthecheesefactory.lab.designlibrary;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -15,6 +18,7 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
@@ -48,32 +52,36 @@ public class HistoryActivity extends AppCompatActivity {
         TextView sHistory = (TextView) findViewById(R.id.textViewHistory);
         sensorName = intent.getStringExtra("sensor");
 
-        sTitle.setText(sensorName + " History");
+        sTitle.setText(sensorName + getString(R.string.his));
 
         sHistory.setText("Time: \t\t\t\tValue\n\n");
         for (String line : getLine()) {
-            sHistory.append(line + "\n");
+            sHistory.append(line);
         }
     }
 
     protected String[] getLine() {
         String[] tmp = new String[lux.get(0).length];
+
         for (int i = 0; i < lux.get(0).length; i++) {
-            tmp[i] = (time[i] + ": \t" + lux.get(0)[i]);
+            tmp[i] = ("\n" + time[i] + ": \t" + lux.get(0)[i]);
             if (dimension > 1) {
                 tmp[i] = tmp[i].concat(" , " + lux.get(1)[i]);
             }
             if (dimension == 3)
                 tmp[i] = tmp[i].concat(" , " + lux.get(2)[i]);
+            tmp[i].concat("\n");
         }
         return tmp;
     }
 
     protected String getOutputData(String[] in) {
         String out = "";
-        for (String i : in) {
+        /*for (String i : in) {
             out.concat(i);
-        }
+        }*/
+        out = Arrays.toString(in);
+        Log.d("con", "getOutputData: " + out);
         return out;
     }
 
@@ -97,18 +105,11 @@ public class HistoryActivity extends AppCompatActivity {
                 dateFormat.format(Calendar.getInstance().getTime()) + ".txt";
         int id = item.getItemId();
 
-        SDCardHelper sdCardHelper = new SDCardHelper();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_save) {
 
-            //get output data
-                /*outputStream = new FileOutputStream(new File(getApplicationContext().getFilesDir(), fileName));
-                for (String out : getLine()) {
-                    outputStream.write(out.getBytes());
-                }*/
-            if (sdCardHelper.saveFileToSDCardPrivateFilesDir(getOutputData(getLine()).getBytes(),
-                    fileName, this)){
+            if (SDCardHelper.saveFileToSDCardPrivateFilesDir(getOutputData(getLine()).getBytes(),
+                    fileName, this)) {
                 Toast.makeText(HistoryActivity.this,
                         fileName + " " + getString(R.string.save_to_excel),
                         Toast.LENGTH_SHORT).show();
@@ -121,40 +122,69 @@ public class HistoryActivity extends AppCompatActivity {
         }
 
         if (id == R.id.action_delete) {
-            File[] files = getDir(sdCardHelper.getSDCardPrivateFilesDir(this), MODE_PRIVATE)
-                    .listFiles(new FilenameFilter() {
-                //filter for txt files
-                @Override
-                public boolean accept(File dir, String name) {
-                    if (name.lastIndexOf('.') > 0) {
 
-                        // get last index for '.' char
-                        int lastIndex = name.lastIndexOf('.');
-
-                        // get extension
-                        String str = name.substring(lastIndex);
-
-                        // match path name extension
-                        if (str.equals(".txt")) {
-                            return true;
+            new AlertDialog.Builder(HistoryActivity.this).setTitle(getString(R.string.confirmation))
+                    .setMessage("Are you sure to delete all the saved files?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            deleteSaved();
                         }
-                    }
-                    return false;
+                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
                 }
-            });
-            for (File file : files) {
-                if (file.delete())
-                    Toast.makeText(HistoryActivity.this,
-                            file.getName() + " " + getString(R.string.txt_delete),
-                            Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(HistoryActivity.this,
-                            getString(R.string.delete_fail) + file.getName(),
-                            Toast.LENGTH_LONG).show();
-            }
+            }).show();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void deleteSaved() {
+        String successDeleted = "", failDeleted = "";
+        boolean hasErr = false, hasSuccess = false;
+
+        File[] files = new File(SDCardHelper.getSDCardPrivateFilesDir(this))
+                .listFiles(new FilenameFilter() {
+                    //filter for txt files
+                    @Override
+                    public boolean accept(File dir, String name) {
+                        if (name.lastIndexOf('.') > 0) {
+
+                            // get last index for '.' char
+                            int lastIndex = name.lastIndexOf('.');
+
+                            // get extension
+                            String str = name.substring(lastIndex);
+
+                            // match path name extension
+                            if (str.equals(".txt")) {
+                                return true;
+                            }
+                        }
+                        return false;
+                    }
+                });
+
+        for (File file : files) {
+            if (file.delete()) {
+                hasSuccess = true;
+                successDeleted.concat(file.getName() + "\n");
+            } else {
+                hasErr = true;
+                failDeleted.concat(file.getName() + "\n");
+            }
+        }
+
+        if (hasSuccess)
+            Toast.makeText(HistoryActivity.this,
+                    successDeleted + " " + getString(R.string.txt_delete),
+                    Toast.LENGTH_SHORT).show();
+        if (hasErr)
+            Toast.makeText(HistoryActivity.this,
+                    getString(R.string.delete_fail) + failDeleted,
+                    Toast.LENGTH_LONG).show();
     }
 }
 

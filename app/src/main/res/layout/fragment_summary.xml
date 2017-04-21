@@ -1,11 +1,27 @@
-<android.support.v7.widget.RecyclerView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/my_recycler_view"
+    android:id="@+id/summary_scroll_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
     android:scrollbars="vertical"
-    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-    tools:listitem="@layout/activity_card" />
+    app:layoutManager="android.support.v7.widget.LinearLayoutManager">
+
+    <LinearLayout
+        android:id="@+id/summary_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/summaryTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/today_s_activities"
+            android:textColor="@color/colorWhite"
+            android:textSize="30sp" />
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>
+

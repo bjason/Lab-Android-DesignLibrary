@@ -7,10 +7,8 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,16 +17,17 @@ import android.widget.TextView;
 
 import com.inthecheesefactory.lab.designlibrary.reference.FloatQueue;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CurrentFragment.OnFragmentInteractionListener} interface
+ * {@link OnFragmentUpdateListener} interface
  * to handle interaction events.
  * Use the {@link CurrentFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -42,14 +41,9 @@ public class CurrentFragment extends Fragment {
     double currentState = 0;
     int ignore;
     boolean ifLinearAccelerationExist;
-    long now, lastChange;
+    Date now, lastChange;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
-    // TODO: Rename and change types of parameters
-
-    private OnFragmentInteractionListener mListener;
+    private OnFragmentUpdateListener mListener;
 
     public CurrentFragment() {
         // Required empty public constructor
@@ -62,8 +56,10 @@ public class CurrentFragment extends Fragment {
             int sensorType = sensor.getType();
             float x, y, z;
             double SVM;
-            long now = System.currentTimeMillis();
+            Date now = Calendar.getInstance().getTime();
             double lastState = currentState;
+
+            String currState = "";
 
             switch (sensorType) {
                 case Sensor.TYPE_LINEAR_ACCELERATION: {
@@ -80,14 +76,14 @@ public class CurrentFragment extends Fragment {
                             //2.1 for sitting
                             //2.2 for standing
                             currentState = 2;   //2 for standing or sitting
-                            stateChange(R.string.txt_standing, R.drawable.standing);
+                            currState = getString(R.string.txt_standing);
                         }
                     } else if (SVM < 7.5) {
                         currentState = 3.1; // for walking
-                        stateChange(R.string.txt_walking, R.drawable.walking);
+                        currState = getString(R.string.txt_walking);
                     } else if (SVM < 15) {
                         currentState = 3.2; // for running
-                        stateChange(R.string.txt_running, R.drawable.running);
+                        currState = getString(R.string.txt_running);
                     } else {
                         currentState = 3.5; // for tumbling
                     }
@@ -131,7 +127,7 @@ public class CurrentFragment extends Fragment {
                         }
                         if (Math.abs(z) > 5 || Math.abs(y) > 5) {
                             currentState = 5;
-                            stateChange(R.string.txt_tumble, R.drawable.tumbling);
+                            currState = getString(R.string.txt_tumble);
                             //...and other detect method
                         }
                         if ((lastState != currentState)) {
@@ -143,13 +139,13 @@ public class CurrentFragment extends Fragment {
                     if (Math.abs(y) < 3) {
                         if (z > 8.8) {
                             currentState = 1.1;//1.1 for supine
-                            stateChange(R.string.txt_supine, R.drawable.background);
+                            currState = getString(R.string.txt_supine);
                         } else if (z < -8.8) {
                             currentState = 1.2;//1.2 for prone
-                            stateChange(R.string.txt_prone, R.drawable.background);
+                            currState = getString(R.string.txt_prone);
                         } else if (SVM > 9) {
                             currentState = 1.3;//1.3 for lateral
-                            stateChange(R.string.txt_lateral, R.drawable.background);
+                            currState = getString(R.string.txt_lateral);
                         }
                         if ((lastState != currentState)) {
                             lastChange = changeTimeTo(now);
@@ -159,9 +155,14 @@ public class CurrentFragment extends Fragment {
                 }
             }
             if (currentState != 0) {
-                CharSequence keep = DateUtils.getRelativeTimeSpanString(lastChange);
+                long diff = now.getTime() - lastChange.getTime();
+                long diffInSec = TimeUnit.MILLISECONDS.toSeconds(diff);
                 TextView tv = (TextView) getView().findViewById(R.id.gesture_keep);
-                tv.setText(getString(R.string.txt_keep) + keep);
+                tv.setText(getString(R.string.txt_keep) + diffInSec + getString(R.string.seconds));
+
+                if ((currentState != lastState) && !Objects.equals(currState, "")) {
+                    stateChange(currState, diffInSec);
+                }
             }
         }
 
@@ -171,17 +172,24 @@ public class CurrentFragment extends Fragment {
         }
     };
 
-    private long changeTimeTo(long now) {
-        long lastTime = this.now;
+    private Date changeTimeTo(Date now) {
+        Date lastTime = this.now;
         this.now = now;
         return lastTime;
     }
 
-    private void stateChange(int txt_state, int drawable) {
+    private void stateChange(String txt_state, long timeLast) {
         TextView textView = (TextView) getView().findViewById(R.id.text_current_gesture);
-        //ImageView imageView = (ImageView) findViewById(R.id.cover_img);
+        Bundle bundle = new Bundle();
+
         textView.setText(txt_state);
+        //ImageView imageView = (ImageView) findViewById(R.id.cover_img);
         //changeImageView(imageView, ResourcesCompat.getDrawable(getResources(), drawable, null));
+
+        //TODO send bundle to the activity that is supposed to handle the change
+        bundle.putString("state", txt_state);
+        bundle.putLong("timeLast", timeLast);
+        mListener.onStateUpdate(bundle);
     }
 
     void changeImageView(ImageView imageView, Drawable changeTo) {
@@ -193,7 +201,6 @@ public class CurrentFragment extends Fragment {
         td.startTransition(500);
     }
 
-    // TODO: Rename and change types and number of parameters
     public static CurrentFragment newInstance() {
         return new CurrentFragment();
     }
@@ -206,7 +213,7 @@ public class CurrentFragment extends Fragment {
         acceValues = new FloatQueue(100, 3);
         ignore = 0;
         currentState = 0;
-        now = System.currentTimeMillis();
+        now = Calendar.getInstance().getTime();
     }
 
     private void initSensors() {
@@ -247,18 +254,18 @@ public class CurrentFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_current, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+    /*// TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onStateUpdate(uri);
         }
-    }
+    }*/
 
-    /*@Override
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof OnFragmentUpdateListener) {
+            mListener = (OnFragmentUpdateListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -269,7 +276,7 @@ public class CurrentFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }*/
+    }
 
     /**
      * This interface must be implemented by activities that contain this
@@ -281,9 +288,9 @@ public class CurrentFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+    public interface OnFragmentUpdateListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onStateUpdate(Bundle state);
     }
 
     public void unregisterListener() {

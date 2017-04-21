@@ -1,0 +1,21 @@
+#Internal package file, do not edit.
+#Thu Apr 13 20:48:45 CST 2017
+2.base=F\:\\Jason's\\AndroidProject\\Lab-Android-DesignLibrary\\sample\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
+5.file=F\:\\Jason's\\AndroidProject\\Lab-Android-DesignLibrary\\sample\\build\\intermediates\\res\\resources-debug.ap_\\resources.arsc
+5.set=ANDROID_RESOURCE
+3.base=F\:\\Jason's\\AndroidProject\\Lab-Android-DesignLibrary\\sample\\build\\intermediates\\res\\resources-debug.ap_
+2.set=DEX
+4.base=F\:\\Jason's\\AndroidProject\\Lab-Android-DesignLibrary\\sample\\build\\intermediates\\res\\resources-debug.ap_
+count=6
+0.file=F\:\\Jason's\\AndroidProject\\Lab-Android-DesignLibrary\\sample\\build\\intermediates\\res\\resources-debug.ap_\\res\\drawable-xxhdpi-v4\\ic_launcher.png
+5.base=F\:\\Jason's\\AndroidProject\\Lab-Android-DesignLibrary\\sample\\build\\intermediates\\res\\resources-debug.ap_
+4.set=ANDROID_RESOURCE
+1.file=F\:\\Jason's\\AndroidProject\\Lab-Android-DesignLibrary\\sample\\build\\intermediates\\res\\resources-debug.ap_\\AndroidManifest.xml
+1.set=ANDROID_RESOURCE
+2.file=F\:\\Jason's\\AndroidProject\\Lab-Android-DesignLibrary\\sample\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex
+0.base=F\:\\Jason's\\AndroidProject\\Lab-Android-DesignLibrary\\sample\\build\\intermediates\\res\\resources-debug.ap_
+3.file=F\:\\Jason's\\AndroidProject\\Lab-Android-DesignLibrary\\sample\\build\\intermediates\\res\\resources-debug.ap_\\res\\layout\\activity_main.xml
+3.set=ANDROID_RESOURCE
+1.base=F\:\\Jason's\\AndroidProject\\Lab-Android-DesignLibrary\\sample\\build\\intermediates\\res\\resources-debug.ap_
+4.file=F\:\\Jason's\\AndroidProject\\Lab-Android-DesignLibrary\\sample\\build\\intermediates\\res\\resources-debug.ap_\\res\\drawable-nodpi-v4\\hugh.png
+0.set=ANDROID_RESOURCE

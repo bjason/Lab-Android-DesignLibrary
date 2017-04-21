@@ -1,27 +1,23 @@
 package com.inthecheesefactory.lab.designlibrary;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link SummaryFragment.OnFragmentInteractionListener} interface
+ * {SummaryFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link SummaryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class SummaryFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-
-    private OnFragmentInteractionListener mListener;
 
     public SummaryFragment() {
         // Required empty public constructor
@@ -51,14 +47,17 @@ public class SummaryFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_summary, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+    public void addState(Bundle bundle) {
+        String currentState = bundle.getString("state");
+        long lastTime = bundle.getLong("lastTime");
+        LinearLayout linearLayout = (LinearLayout) getView();
+
+        TextView textView = new TextView(getContext());
+        textView.setText(lastTime + ":" + currentState);
+        linearLayout.addView(textView);
     }
 
-    @Override
+    /*@Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
@@ -73,9 +72,9 @@ public class SummaryFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
+    }*/
 
-    /**
+       /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
@@ -85,8 +84,4 @@ public class SummaryFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 }
