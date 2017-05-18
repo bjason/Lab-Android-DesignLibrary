@@ -1,6 +1,6 @@
 package com.inthecheesefactory.lab.designlibrary.dsp.adapter;
 
-import com.sin.java.dsp.base.ArgumentDescribe;
+import com.inthecheesefactory.lab.designlibrary.dsp.base.ArgumentDescribe;
 
 /**
  * Int数组转Double数组适配器

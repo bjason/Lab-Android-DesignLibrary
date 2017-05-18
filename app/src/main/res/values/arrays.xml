@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="activity_type">
+        <item>Supine</item>
+        <item>Prone</item>
+        <item>Lateral</item>
+        <item>Sitting</item>
+        <item>Standing</item>
+        <item>Walk</item>
+        <item>Running</item>
+        <item>Tumbling</item>
+        <item>Cycling</item>
+        <item>On transportation</item>
+        <item>Other</item>
+    </array>
+</resources>

@@ -1,6 +1,6 @@
 package com.inthecheesefactory.lab.designlibrary.dsp.util;
 
-import com.sin.java.dsp.base.Complex;
+import com.inthecheesefactory.lab.designlibrary.dsp.base.Complex;
 
 public class DataMapIn {
 	static public int[] mapIn(double[] x, int offset, int len, int floor, int upper){

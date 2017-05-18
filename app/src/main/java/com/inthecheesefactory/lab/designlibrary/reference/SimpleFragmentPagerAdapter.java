@@ -9,9 +9,6 @@ import com.inthecheesefactory.lab.designlibrary.CurrentFragment;
 import com.inthecheesefactory.lab.designlibrary.R;
 import com.inthecheesefactory.lab.designlibrary.SummaryFragment;
 
-import static android.app.PendingIntent.getActivity;
-import static java.security.AccessController.getContext;
-
 /**
  * Created by WU on 2017/4/12.
  */

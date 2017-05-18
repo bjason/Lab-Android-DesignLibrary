@@ -36,9 +36,9 @@
                     app:layout_collapseMode="parallax" />
 
             </android.support.design.widget.CollapsingToolbarLayout>
-            ​​
+
             <include layout="@layout/toolbar" />
-            ​
+
             <LinearLayout
                 android:id="@+id/materialup.title_container"
                 android:layout_width="match_parent"
@@ -47,14 +47,13 @@
                 android:orientation="vertical"
                 android:paddingTop="8dp"
                 app:layout_scrollFlags="scroll|enterAlways|snap">
-                ​
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:id="@+id/userName"
                     android:layout_height="wrap_content"
                     android:text="@string/txt_na"
                     android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
-                ​
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -64,9 +63,9 @@
                     android:text="@string/txt_na"
                     android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
                     android:textColor="@android:color/white" />
-                ​
+
             </LinearLayout>
-            ​
+
             <android.support.design.widget.TabLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="fill_parent"
@@ -74,12 +73,11 @@
                 app:tabIndicatorColor="@color/colorAccent"
                 app:tabIndicatorHeight="4dp" />
         </android.support.design.widget.AppBarLayout>
-        ​
 
         <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/viewpager"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
         <de.hdodenhof.circleimageview.CircleImageView

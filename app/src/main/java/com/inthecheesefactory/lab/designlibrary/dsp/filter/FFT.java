@@ -1,8 +1,8 @@
 package com.inthecheesefactory.lab.designlibrary.dsp.filter;
 
-import com.sin.java.dsp.base.ArgumentDescribe;
-import com.sin.java.dsp.base.Complex;
-import com.sin.java.dsp.trans.SignalTransfor;
+import com.inthecheesefactory.lab.designlibrary.dsp.base.ArgumentDescribe;
+import com.inthecheesefactory.lab.designlibrary.dsp.base.Complex;
+import com.inthecheesefactory.lab.designlibrary.dsp.trans.SignalTransfor;
 
 /**
  * 快速傅立叶变换器(只能对2的N次幂个数据进行变换)

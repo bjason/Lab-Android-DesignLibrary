@@ -1,6 +1,6 @@
 package com.inthecheesefactory.lab.designlibrary.dsp.filter;
 
-import com.sin.java.dsp.base.ArgumentDescribe;
+import com.inthecheesefactory.lab.designlibrary.dsp.base.ArgumentDescribe;
 
 /**
  * 均值滤波器 对输入信号进行均值滤波，窗长为windowWidth，滤波后信号长度保持不变

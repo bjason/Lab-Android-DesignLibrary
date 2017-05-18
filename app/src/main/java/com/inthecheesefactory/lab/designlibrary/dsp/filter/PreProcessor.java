@@ -1,7 +1,7 @@
 package com.inthecheesefactory.lab.designlibrary.dsp.filter;
 
-import com.sin.java.dsp.base.ArgumentDescribe;
-import com.sin.java.dsp.base.BasePipe;
+import com.inthecheesefactory.lab.designlibrary.dsp.base.ArgumentDescribe;
+import com.inthecheesefactory.lab.designlibrary.dsp.base.BasePipe;
 
 /**
  * 预处理机，完成归一化和滤波

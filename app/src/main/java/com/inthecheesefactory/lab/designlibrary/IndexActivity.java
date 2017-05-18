@@ -1,6 +1,7 @@
 package com.inthecheesefactory.lab.designlibrary;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -13,13 +14,20 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.inthecheesefactory.lab.designlibrary.reference.FloatQueue;
+import com.inthecheesefactory.lab.designlibrary.reference.SDCardHelper;
+import com.inthecheesefactory.lab.designlibrary.reference.SaveSensorData;
+
+import java.util.ArrayList;
 import java.util.List;
 
 //using accelerator to test the gesture
@@ -35,6 +43,8 @@ public class IndexActivity extends AppCompatActivity {
 
     private SensorManager mSensorManager;
     List<Sensor> deviceSensors;
+
+    List<FloatQueue> sensData;
 
     private SensorEventListener mySensorListener = new SensorEventListener() {
         @Override
@@ -70,129 +80,87 @@ public class IndexActivity extends AppCompatActivity {
         deviceSensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
 
         LinearLayout linearLayout = (LinearLayout) findViewById(R.id.view_layout_main);
+        sensData = new ArrayList<>();
 
         int sensorNum = 0;
         for (Sensor mSensor : deviceSensors) {
-            String type;
-            String description;
+            String[] type;
             sensorNum++;
 
             switch (mSensor.getType()) {
                 case Sensor.TYPE_ACCELEROMETER:
-                    type = "TYPE_ACCELEROMETER";
-                    description = getString(R.string.txt_acce);
-                    mSensorManager.registerListener(mySensorListener,
-                            mSensor, SensorManager.SENSOR_DELAY_GAME);
+                    type = initSensor(mSensor, "TYPE_ACCELEROMETER", getString(R.string.txt_acce));
                     break;
                 case Sensor.TYPE_AMBIENT_TEMPERATURE:
-                    type = "TYPE_AMBIENT_TEMPERATURE";
-                    description = getString(R.string.txt_temp);
-                    mSensorManager.registerListener(mySensorListener,
-                            mSensor, SensorManager.SENSOR_DELAY_GAME);
+                    type = initSensor(mSensor, "TYPE_AMBIENT_TEMPERATURE", getString(R.string.txt_temp));
                     break;
                 case Sensor.TYPE_GAME_ROTATION_VECTOR:
-                    type = "TYPE_GAME_ROTATION_VECTOR";
-                    description = getString(R.string.txt_rot);
-                    mSensorManager.registerListener(mySensorListener,
-                            mSensor, SensorManager.SENSOR_DELAY_GAME);
+                    type = initSensor(mSensor, "TYPE_GAME_ROTATION_VECTOR", getString(R.string.txt_rot));
                     break;
                 case Sensor.TYPE_GRAVITY:
-                    type = "TYPE_GRAVITY";
-                    description = getString(R.string.txt_gra);
-                    mSensorManager.registerListener(mySensorListener,
-                            mSensor, SensorManager.SENSOR_DELAY_GAME);
+                    type = initSensor(mSensor, "TYPE_GRAVITY", getString(R.string.txt_gra));
                     break;
                 case Sensor.TYPE_GYROSCOPE:
-                    type = "TYPE_GYROSCOPE";
-                    description = getString(R.string.txt_gyo);
-                    mSensorManager.registerListener(mySensorListener,
-                            mSensor, SensorManager.SENSOR_DELAY_GAME);
+                    type = initSensor(mSensor, "TYPE_GYROSCOPE", getString(R.string.txt_gyo));
                     break;
                 case Sensor.TYPE_LIGHT:
-                    type = "TYPE_LIGHT";
-                    description = getString(R.string.txt_light);
-                    mSensorManager.registerListener(mySensorListener,
-                            mSensor, SensorManager.SENSOR_DELAY_GAME);
+                    type = initSensor(mSensor, "TYPE_LIGHT", getString(R.string.txt_light));
                     break;
                 case Sensor.TYPE_LINEAR_ACCELERATION:
-                    type = "TYPE_LINEAR_ACCELERATION";
-                    description = getString(R.string.txt_lacce);
-                    mSensorManager.registerListener(mySensorListener,
-                            mSensor, SensorManager.SENSOR_DELAY_GAME);
+                    type = initSensor(mSensor, "TYPE_LINEAR_ACCELERATION", getString(R.string.txt_lacce));
+
                     break;
                 case Sensor.TYPE_MAGNETIC_FIELD:
-                    type = "TYPE_MAGNETIC_FIELD";
-                    description = getString(R.string.txt_mag);
-                    mSensorManager.registerListener(mySensorListener,
-                            mSensor, SensorManager.SENSOR_DELAY_GAME);
+                    type = initSensor(mSensor, "TYPE_MAGNETIC_FIELD", getString(R.string.txt_mag));
+
                     break;
                 case Sensor.TYPE_MAGNETIC_FIELD_UNCALIBRATED:
-                    type = "TYPE_MAGNETIC_FIELD_UNCALIBRATED";
-                    description = getString(R.string.txt_unmag);
-                    mSensorManager.registerListener(mySensorListener,
-                            mSensor, SensorManager.SENSOR_DELAY_GAME);
+                    type = initSensor(mSensor, "TYPE_MAGNETIC_FIELD_UNCALIBRATED", getString(R.string.txt_unmag));
+
                     break;
                 case Sensor.TYPE_PROXIMITY:
-                    type = "TYPE_PROXIMITY";
-                    description = getString(R.string.txt_pro);
-                    mSensorManager.registerListener(mySensorListener,
-                            mSensor, SensorManager.SENSOR_DELAY_GAME);
+                    type = initSensor(mSensor, "TYPE_PROXIMITY", getString(R.string.txt_pro));
+
                     break;
                 case Sensor.TYPE_ROTATION_VECTOR:
-                    type = "TYPE_ROTATION_VECTOR";
-                    description = getString(R.string.txt_rot);
-                    mSensorManager.registerListener(mySensorListener,
-                            mSensor, SensorManager.SENSOR_DELAY_GAME);
+                    type = initSensor(mSensor, "TYPE_ROTATION_VECTOR", getString(R.string.txt_rot));
+
                     break;
                 case Sensor.TYPE_SIGNIFICANT_MOTION:
-                    type = "TYPE_SIGNIFICANT_MOTION";
-                    description = getString(R.string.txt_motion);
-                    mSensorManager.registerListener(mySensorListener,
-                            mSensor, SensorManager.SENSOR_DELAY_GAME);
+                    type = initSensor(mSensor, "TYPE_SIGNIFICANT_MOTION", getString(R.string.txt_motion));
+
                     break;
                 case Sensor.TYPE_TEMPERATURE:
-                    type = "TYPE_TEMPERATURE";
-                    description = getString(R.string.txt_cuptemp);
-                    mSensorManager.registerListener(mySensorListener,
-                            mSensor, SensorManager.SENSOR_DELAY_GAME);
+                    type = initSensor(mSensor, "TYPE_TEMPERATURE", getString(R.string.txt_cuptemp));
+
                     break;
                 case Sensor.TYPE_PRESSURE:
-                    type = "TYPE_PRESSURE";
-                    description = getString(R.string.txt_pre);
-                    mSensorManager.registerListener(mySensorListener,
-                            mSensor, SensorManager.SENSOR_DELAY_GAME);
+                    type = initSensor(mSensor, "TYPE_PRESSURE", getString(R.string.txt_pre));
+
                     break;
                 case Sensor.TYPE_STEP_COUNTER:
-                    type = "TYPE_STEP_COUNTER";
-                    description = getString(R.string.txt_step);
-                    mSensorManager.registerListener(mySensorListener,
-                            mSensor, SensorManager.SENSOR_DELAY_GAME);
+                    type = initSensor(mSensor, "TYPE_STEP_COUNTER", getString(R.string.txt_step));
+
                     break;
                 case Sensor.TYPE_RELATIVE_HUMIDITY:
-                    type = "TYPE_RELATIVE_HUMIDITY";
-                    description = getString(R.string.txt_humi);
-                    mSensorManager.registerListener(mySensorListener,
-                            mSensor, SensorManager.SENSOR_DELAY_GAME);
+                    type = initSensor(mSensor, "TYPE_RELATIVE_HUMIDITY", getString(R.string.txt_humi));
+
                     break;
                 case Sensor.TYPE_ORIENTATION:
-                    type = "TYPE_ORIENTATION";
-                    description = getString(R.string.txt_ori);
-                    mSensorManager.registerListener(mySensorListener,
-                            mSensor, SensorManager.SENSOR_DELAY_GAME);
+                    type = initSensor(mSensor, "TYPE_ORIENTATION", getString(R.string.txt_ori));
+
                     break;
 
                 default:
-                    type = getString(R.string.txt_unknown);
-                    description = mSensor.getName();
-                    mSensorManager.registerListener(mySensorListener,
-                            mSensor, SensorManager.SENSOR_DELAY_GAME);
+                    type = initSensor(mSensor, getString(R.string.txt_unknown), mSensor.getName());
+
                     break;
             }
 
             TextView textView = new TextView(this);
             textView.setText("Name: " + mSensor.getName() + "\n");
-            textView.append("\t\t\tType: " + type + "\n");
-            textView.append("\t\t\tDescription: " + description);
+            textView.append("\t\t\tType: " + type[0] + "\n");
+            textView.append("\t\t\tDescription: " + type[1]);
             textView.setTextColor(Color.WHITE);
             linearLayout.addView(textView);
 
@@ -205,6 +173,16 @@ public class IndexActivity extends AppCompatActivity {
 
         TextView textView = (TextView) findViewById(R.id.text_main);
         textView.setText("There are " + sensorNum + " sensor(s) in your device.");
+    }
+
+    private String[] initSensor(Sensor mSensor, String type, String description) {
+        String[] ret = new String[2];
+        ret[0] = type;
+        ret[1] = description;
+        mSensorManager.registerListener(mySensorListener,
+                mSensor, SensorManager.SENSOR_DELAY_NORMAL);
+        sensData.add(new FloatQueue(100, 3, mSensor.getName()));
+        return ret;
     }
 
     private void initToolbar() {
@@ -241,7 +219,7 @@ public class IndexActivity extends AppCompatActivity {
                         finish();
                         return true;
                     case R.id.lightSensor:
-                        sensorName=Sensor.TYPE_LIGHT;
+                        sensorName = Sensor.TYPE_LIGHT;
                         break;
                     case R.id.acceSensor:
                         sensorName = Sensor.TYPE_ACCELEROMETER;
@@ -297,7 +275,7 @@ public class IndexActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.optionmenu_main, menu);
+        getMenuInflater().inflate(R.menu.optionmenu_list, menu);
         return true;
     }
 
@@ -317,7 +295,64 @@ public class IndexActivity extends AppCompatActivity {
             unregisterListener();
         }
 
+        if (item.getItemId() == R.id.save_to_txt) {
+
+            new AlertDialog.Builder(IndexActivity.this)
+                    .setTitle("Choose an activity")
+                    .setItems(R.array.activity_type, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            saveSensToFiles(
+                                    getResources().getStringArray(R.array.activity_type)[i]);
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    }).show();
+
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void saveSensToFiles(String state) {
+        boolean hasSuccess = false, hasFail = false;
+        for (FloatQueue sd : sensData) {
+            Bundle bundle = new Bundle();
+            int dimension = sd.getDimen();
+            List<float[]> tmp = sd.getQueue(dimension);
+
+            bundle.putInt("dimension", dimension);
+            bundle.putString("sensor", sd.getTag());
+            bundle.putLongArray("time", sd.getTime());
+            for (int i = 0; i < dimension; i++)
+                bundle.putFloatArray("value" + i, tmp.get(i));
+
+            SaveSensorData saveSensorData = new SaveSensorData(bundle);
+            String fileName = saveSensorData.getFileName();
+
+            if (SDCardHelper.saveSensorData(
+                    saveSensorData.getOutputData().getBytes(), state, fileName)) {
+                hasSuccess = true;
+            } else {
+                hasFail = true;
+            }
+        }
+
+        if (hasSuccess && !hasFail)
+            Toast.makeText(IndexActivity.this,
+                    R.string.success_save,
+                    Toast.LENGTH_SHORT).show();
+        else if (hasFail && !hasSuccess)
+            Toast.makeText(IndexActivity.this,
+                    R.string.fail_to_save,
+                    Toast.LENGTH_SHORT).show();
+        else if (hasFail && hasSuccess)
+            Toast.makeText(IndexActivity.this,
+                    R.string.some_success,
+                    Toast.LENGTH_SHORT).show();
     }
 
     public void unregisterListener() {

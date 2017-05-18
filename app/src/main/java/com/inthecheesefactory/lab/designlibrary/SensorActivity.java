@@ -15,11 +15,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.inthecheesefactory.lab.designlibrary.reference.FloatQueue;
@@ -31,6 +29,8 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle drawerToggle;
+    
+//     String TAG = "SensorTest";
 
     private SensorManager mSensorManager;
     private Sensor mSensor;
@@ -66,8 +66,9 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
         initInstances();
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        sensorType = intent.getIntExtra("SensorName", Sensor.TYPE_ACCELEROMETER);
+        sensorType = intent.getExtras().getInt("SensorName");
         mSensor = mSensorManager.getDefaultSensor(sensorType);
+//         Log.d(TAG, "name: " + mSensor.getStringType());
 
         if (mSensor != null) {
             pathView = new PathView(this);
@@ -90,6 +91,7 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
                 case Sensor.TYPE_LIGHT:
                     getSupportActionBar().setTitle(R.string.txt_light);
                     unit.append("lux");
+//                     Log.d(TAG, "onCreate: confirm");
                     dimension = 1;
                     break;
                 case Sensor.TYPE_MAGNETIC_FIELD:
@@ -139,7 +141,7 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
     private void initInstances() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         drawerToggle = new ActionBarDrawerToggle(SensorActivity.this, drawerLayout, R.string.hello_world, R.string.hello_world);
-        drawerLayout.setDrawerListener(drawerToggle);
+        drawerLayout.addDrawerListener(drawerToggle);
         dimension = 3;
 
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -283,10 +285,12 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
         if (dimension != 1) {
             sen[1] = sensorEvent.values[1];
             textView.append("\n , " + sen[1]);
+//             Log.d(TAG, "onSensorChanged: 2");
         }
         if (dimension == 3) {
             sen[2] = sensorEvent.values[2];
             textView.append("\n , " + sen[2]);
+//             Log.d(TAG, "onSensorChanged: 3");
         }
 
     }
@@ -302,8 +306,8 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
             while (!Thread.currentThread().isInterrupted()) {
                 Message message = new Message();
                 message.what = 1;
+//                 Log.d(TAG, "run: " + Arrays.toString(sen));
                 lux.enQueue(sen);
-                //Log.v("lux", Arrays.toString(lux.getQueue()));
                 pathView.postInvalidate();
 
                 //Send message

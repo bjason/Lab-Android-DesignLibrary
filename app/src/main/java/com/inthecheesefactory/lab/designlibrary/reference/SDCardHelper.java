@@ -14,7 +14,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 /**
  * Created by WU on 2017/4/10.
@@ -94,6 +97,14 @@ public class SDCardHelper {
             }
         }
         return false;
+    }
+
+    public static boolean saveSensorData(byte[] data, String state,
+                                            String fileName) {
+        DateFormat dateFormat = new SimpleDateFormat("MM-dd HH:mm");
+        String date = " " + dateFormat.format(new Date());
+        String dir = "SensorDetector" + File.separator + state + date;
+        return saveFileToSDCardCustomDir(data, dir, fileName);
     }
 
     // 往SD卡的自定义目录下保存文件

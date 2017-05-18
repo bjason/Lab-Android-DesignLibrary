@@ -1,6 +1,6 @@
 package com.inthecheesefactory.lab.designlibrary.dsp.trans;
 
-import com.sin.java.dsp.base.Complex;
+import com.inthecheesefactory.lab.designlibrary.dsp.base.Complex;
 
 public class SignalTransfor {
 	

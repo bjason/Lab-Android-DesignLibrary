@@ -111,7 +111,7 @@ public class HistoryActivity extends AppCompatActivity {
             if (SDCardHelper.saveFileToSDCardPrivateFilesDir(getOutputData(getLine()).getBytes(),
                     fileName, this)) {
                 Toast.makeText(HistoryActivity.this,
-                        fileName + " " + getString(R.string.save_to_excel),
+                        fileName + " " + getString(R.string.save_to_txt),
                         Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(HistoryActivity.this,

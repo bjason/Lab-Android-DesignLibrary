@@ -1,6 +1,6 @@
 package com.inthecheesefactory.lab.designlibrary.dsp.base;
 
-import com.sin.java.dsp.util.XLog;
+import com.inthecheesefactory.lab.designlibrary.dsp.util.XLog;
 
 /**
  * 基本管道 其他的全部管道都是该管道的子类

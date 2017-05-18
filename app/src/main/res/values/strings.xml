@@ -37,7 +37,7 @@
     <string name="txt_ori">Orientation Sensor</string>
     <string name="txt_unknown">Unknown</string>
     <string name="txt_na">N/A</string>
-    <string name="save_to_excel">Save as text file</string>
+    <string name="save_to_txt">Save as text file</string>
     <string name="txt_wrong_write">Something went wrong</string>
     <string name="txt_writen_success">written successfully</string>
     <string name="index_of_sensors">Index of Sensors</string>
@@ -145,9 +145,13 @@
         Coordinator Examples:\n https://github.com/bjason/CoordinatorExamples\n\n SensorMonitor:\n
         https://github.com/bjason/SensorMonitor</string>
     <string name="license">License</string>
-    <string name="his">History</string>
+    <string name="his">\nHistory</string>
     <string name="confirmation">Confirmation</string>
     <string name="resume_recording">Resume recording</string>
     <string name="seconds">second(s) ago</string>
     <string name="today_s_activities">Today\'s activities</string>
+    <string name="alert_for_delete">Are you sure to delete all the saved files?</string>
+    <string name="success_save">Success! All saved</string>
+    <string name="fail_to_save">Fail to save files...</string>
+    <string name="some_success">Several files saved successfully</string>
 </resources>

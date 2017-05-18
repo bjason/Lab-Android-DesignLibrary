@@ -1,7 +1,7 @@
 package com.inthecheesefactory.lab.designlibrary.dsp.filter;
 
-import com.sin.java.dsp.base.ArgumentDescribe;
-import com.sin.java.dsp.util.SinMath;
+import com.inthecheesefactory.lab.designlibrary.dsp.base.ArgumentDescribe;
+import com.inthecheesefactory.lab.designlibrary.dsp.util.SinMath;
 
 /**
  * Double数组归一化

@@ -1,6 +1,6 @@
 package com.inthecheesefactory.lab.designlibrary.dsp.filter;
 
-import com.sin.java.dsp.base.ArgumentDescribe;
+import com.inthecheesefactory.lab.designlibrary.dsp.base.ArgumentDescribe;
 
 /**
  * 信号拉伸
